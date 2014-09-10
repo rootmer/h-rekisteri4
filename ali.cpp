@@ -62,11 +62,13 @@ void TulostaKaikkiHenkilot(vector<tietue> TIEDOT, int lkm) {
 
 /** Henkilön lisäämiseen tarkoitettu
 *   aliohjelma. Tarkistaa myös onko tilaa tiedoille.
+*   Parametrinä vectorin pointteri jotta voidaan
+*   muuttaa aliohjelman ulkopuolista arvoa
 */
-void LisaaHenkilo(vector<tietue> TIEDOT, int *lkm) {
+void LisaaHenkilo(vector<tietue> *TIEDOT, int *lkm) {
 	int kohta = 99;
     for (int a = 0; a < *lkm; a++) {
-        if (TIEDOT.at(a).etunimi == "empty") {
+        if (TIEDOT->at(a).etunimi == "empty") {
             kohta = a;
             break;
         }
@@ -82,10 +84,10 @@ void LisaaHenkilo(vector<tietue> TIEDOT, int *lkm) {
         cin >> kMatka;
         cout << "Henkilön hatun koko" << endl;
         cin >> hKoko;
-        TIEDOT.at(kohta).etunimi = eNimi;
-        TIEDOT.at(kohta).koulumatka = kMatka;
-        TIEDOT.at(kohta).hattukoko = hKoko;
-        if (kohta == *lkm - 1) { taynna = true; }
+		TIEDOT->at(kohta).etunimi = eNimi;
+		TIEDOT->at(kohta).koulumatka = kMatka;
+		TIEDOT->at(kohta).hattukoko = hKoko;
+		if (kohta == *lkm - 1) { taynna = true; }
     }
 
     else if (taynna) { cout << endl << "Taulukko täynnä!" << endl; }

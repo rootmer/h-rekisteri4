@@ -31,6 +31,7 @@ int main(void)
     *   määritetty vakiomuuttujassa taulunkoko
     */
     vector<tietue> hRekisteri(taulunKoko);
+	vector<tietue> *pVector = &hRekisteri;
 	int valinta = 99;
 
     do {
@@ -45,7 +46,7 @@ int main(void)
         *   lisätään henkilötieto
         */
         else if (valinta == 1) {
-			LisaaHenkilo(hRekisteri,pTauluKoko);
+			LisaaHenkilo(pVector,pTauluKoko);
         }
 
         /** Listaa käyttäjän haluaman

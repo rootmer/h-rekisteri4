@@ -26,11 +26,11 @@ extern bool taynna;
 *	muutettu vectoriyhteensopivaksi
 */
 int valikko(void);
-void TulostaHenkilo(std::vector<tietue> TIEDOT);
-void TulostaKaikkiHenkilot(std::vector<tietue> TIEDOT, int lkm);
-void LisaaHenkilo(std::vector<tietue> TIEDOT, int *lkm);
-void PoistaHenkilo(std::vector<tietue> TIEDOT);
-void TallennaTiedostoon(std::string tiedosto,std::vector<tietue> TIEDOT);
-void LueTiedostosta(std::string tiedosto,std::vector<tietue> TIEDOT);
+void TulostaHenkilo(std::vector<tietue>);
+void TulostaKaikkiHenkilot(std::vector<tietue>, int);
+void LisaaHenkilo(std::vector<tietue> *, int *);
+void PoistaHenkilo(std::vector<tietue>);
+void TallennaTiedostoon(std::string,std::vector<tietue>);
+void LueTiedostosta(std::string,std::vector<tietue>);
 
 #endif
