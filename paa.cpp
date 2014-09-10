@@ -27,7 +27,7 @@ const string tiedosto = "tiedosto.dat";
 */
 int main(void)
 {
-    /** tietuetaulukon kokona 10 alkiota,
+    /** tietuevectorin kokona 10 alkiota,
     *   m‰‰ritetty vakiomuuttujassa taulunkoko
     */
     vector<tietue> hRekisteri(taulunKoko);

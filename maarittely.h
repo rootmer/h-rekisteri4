@@ -23,7 +23,7 @@ extern int *pTauluKoko;
 extern bool taynna;
 
 /** aliohjelmien prototyypit
-*
+*	muutettu vectoriyhteensopivaksi
 */
 int valikko(void);
 void TulostaHenkilo(std::vector<tietue> TIEDOT);

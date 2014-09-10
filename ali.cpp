@@ -148,7 +148,7 @@ void TallennaTiedostoon(string tiedosto,vector<tietue> TIEDOT) {
 }
 
 /** Lukee tiedot tiedostosta
-*	ja tallentaa ne taulukkoon
+*	ja tallentaa ne dynaamiseen taulukkoon
 */
 void LueTiedostosta(string tiedosto,vector<tietue> TIEDOT) {
 	string rivi;
