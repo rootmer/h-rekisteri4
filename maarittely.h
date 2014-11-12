@@ -8,29 +8,24 @@
 *   "empty" jotta voidaan tiet‰‰ mik‰ alkio on ns. tyhj‰.
 */
 struct tietue {
-    std::string etunimi;
-    float koulumatka;
-    int hattukoko;
-    tietue(): etunimi("empty"), koulumatka(0.0), hattukoko(0) {}
+    std::string EtuNimi;
+    float KouluMatka;
+    int HattuKoko;
 };
 
-/** taulukon koko vakiomuuttujana
+/** Vakiomuuttujia
 *	
 */
-extern const int taulunKoko;
-extern int tauluTemp;
-extern int *pTauluKoko;
-extern bool taynna;
+extern const int TAULUN_MAX_KOKO;
+extern bool VielaMahtuu;
 
 /** aliohjelmien prototyypit
 *	muutettu vectoriyhteensopivaksi
 */
 int valikko(void);
+void LisaaHenkilo(std::vector<tietue>);
 void TulostaHenkilo(std::vector<tietue>);
-void TulostaKaikkiHenkilot(std::vector<tietue>, int);
-void LisaaHenkilo(std::vector<tietue> *, int *);
+void TulostaKaikkiHenkilot(std::vector<tietue>);
 void PoistaHenkilo(std::vector<tietue>);
-void TallennaTiedostoon(std::string,std::vector<tietue>);
-void LueTiedostosta(std::string,std::vector<tietue>);
 
 #endif
