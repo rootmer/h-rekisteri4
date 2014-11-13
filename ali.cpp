@@ -1,12 +1,10 @@
-/** Tarpeelliset kirjastot käyttöön */
 #include <iostream>
 #include <string>
 #include <vector>
 
-/** Otsaketiedoston sisällyttäminen */
 #include "maarittely.h"
 
-/** Helpottaa coutien ja cinien käyttöä */
+
 using namespace std;
 
 /** Valikko näkyville
@@ -15,25 +13,24 @@ using namespace std;
 int valikko(void) {
 	int valinta = 99;
     cout << endl;
+	cout << "=====================================================================" << endl;
     cout << "VALIKKO" << endl;
     cout << "0 - Lopeta" << endl;
     cout << "1 - Lisaa henkilo" << endl;
-    cout << "2 - Nayta henkilo" << endl;
-    cout << "3 - Nayta kaikki henkilot" << endl;
-	cout << "4 - Poista henkilon tiedot" << endl;
+    cout << "2 - Listaa tietty henkilo" << endl;
+    cout << "3 - Listaa kaikki henkilot" << endl;
+	cout << "4 - Poista tietyn henkilon tiedot" << endl;
+	cout << "=====================================================================" << endl;
 	cin >> valinta;
     return valinta;
 }
 
 
 /** Henkilön lisäämiseen tarkoitettu
-*   aliohjelma. Tarkistaa myös onko tilaa tiedoille.
-*   Parametrinä vectorin pointteri jotta voidaan
-*   muuttaa aliohjelman ulkopuolista arvoa
+*   aliohjelma. Tarkistaa myös onko tilaa tiedoille.   
 */
 void LisaaHenkilo(vector<tietue> TIEDOT) {
-	int kohta = 99;
-	
+	cout << " boolean VielaMahtuu arvo on: " << VielaMahtuu << endl;
 	if (VielaMahtuu) {
 		string EtuNimi;
 		float KouluMatka;
@@ -44,8 +41,14 @@ void LisaaHenkilo(vector<tietue> TIEDOT) {
 		cin >> KouluMatka;
 		cout << "Henkilön hatun koko" << endl;
 		cin >> HattuKoko;
-		TIEDOT.push_back( { EtuNimi, KouluMatka,HattuKoko } );
-		if (kohta == TAULUN_MAX_KOKO - 1) { VielaMahtuu = false; }
+
+		TIEDOT.push_back( {EtuNimi,KouluMatka,HattuKoko} );
+
+		/** Testausta varten!!!!!!!!!!!!!!! */
+		TIEDOT.insert(TIEDOT.begin(), { "Toni", 4.2, 44 });
+		TIEDOT.push_back( { "Toni", 4.5, 55 } );
+
+		if ( int(TIEDOT.size()) == TAULUN_MAX_KOKO) { VielaMahtuu = false; }
 	}
 
 	else if (!VielaMahtuu) { cout << endl << "Taulukko täynnä!" << endl; }
@@ -60,29 +63,28 @@ void TulostaHenkilo(vector<tietue> TIEDOT) {
     cout << "Syötä hakemasi henkilön etunimi" << endl;
     cin >> nimi;
 
-    for (int a = 0; a != TIEDOT.size(); a++) {
-        if (TIEDOT.at(a).etunimi == nimi) {
-            cout << endl << "Löytyi henkilö: " << TIEDOT.at(a).etunimi << " " << TIEDOT.at(a).koulumatka <<
-            " " << TIEDOT.at(a).hattukoko << endl;
+    for (int a = 0; a < int(TIEDOT.size()); a++) {
+        if (TIEDOT.at(a).EtuNimi == nimi) {
+            cout << endl << "Löytyi henkilö: " << TIEDOT.at(a).EtuNimi << " " << TIEDOT.at(a).KouluMatka <<
+            " " << TIEDOT.at(a).HattuKoko << endl;
             break;
         }
 
-        if (a == TIEDOT.size() - 1 && TIEDOT.at(a).etunimi != nimi) {
+        if (a == (TAULUN_MAX_KOKO - 1) && TIEDOT.at(a).EtuNimi != nimi) {
             cout << endl << "Ei löytynyt henkilöä: " << nimi << endl;
             break;
         }
     }
 }
 
-
-/** Listaa kaikki henkilöt lkm kokoisessa
+/** Listaa kaikki henkilöt
 *   tietuetaulukossa TIEDOT
 *
 */
 void TulostaKaikkiHenkilot(vector<tietue> TIEDOT) {
-	for (int a = 0; a < TIEDOT.size(); a++) {
-        cout << "Henkilö " << a << ": " << TIEDOT.at(a).etunimi << " "
-        << TIEDOT.at(a).koulumatka << " " << TIEDOT.at(a).hattukoko << endl;
+	for (int a = 0; a < int(TIEDOT.size()); a++) {
+        cout << "Henkilö " << a << ": " << TIEDOT.at(a).EtuNimi << " "
+        << TIEDOT.at(a).KouluMatka << " " << TIEDOT.at(a).HattuKoko << endl;
     }
 }
 
@@ -96,35 +98,27 @@ void PoistaHenkilo(vector<tietue> TIEDOT) {
 	int poistokohta;
 	cout << "Syötä henkilön etunimi jonka tiedot haluat poistaa" << endl;
     cin >> nimi;
-	
-    for (int a = 0; a < TIEDOT.size(); a++) {
-        if (TIEDOT.at(a).etunimi == nimi) {
-            cout << endl << "Löytyi henkilö: " << TIEDOT.at(a).etunimi << " " << TIEDOT.at(a).koulumatka <<
-            " " << TIEDOT.at(a).hattukoko << endl;
+
+    for (int a = 0; a < int(TIEDOT.size()); a++) {
+        if (TIEDOT.at(a).EtuNimi == nimi) {
+            cout << endl << "Löytyi henkilö: " << TIEDOT.at(a).EtuNimi << " " << TIEDOT.at(a).KouluMatka <<
+            " " << TIEDOT.at(a).HattuKoko << endl;
 			cout << "Haluatko poistaa henkilön tiedot? k/e" << endl;
 			cin >> vastaus;
 			poistokohta = a;
 			
 			if (vastaus == "k") {
-				for (int b = a; b < TAULUN_MAX_KOKO - 1; b++) {
+				for (int b = a; b < int(TIEDOT.size()); b++) {
 					TIEDOT.erase(TIEDOT.begin() + (poistokohta-1));
-					/**TIEDOT[b].etunimi = TIEDOT[b+1].etunimi;
-					*TIEDOT[b].koulumatka = TIEDOT[b+1].koulumatka;
-					*TIEDOT[b].hattukoko = TIEDOT[b+1].hattukoko;
-					*/
 				}
 			 }
 			
 		else if (vastaus == "e") break;
-
-		else {
-			cout << "Syötä 'e' tai 'k'!" << endl;
-		}
         
 		break;
         }
 
-        if ((a == TIEDOT.size() - 1) && (TIEDOT.at(a).etunimi != nimi)) {
+        if ( (a == int(TIEDOT.size()) ) && (TIEDOT.at(a).EtuNimi != nimi)) {
             cout << endl << "Ei löytynyt henkilöä: " << nimi << endl;
             break;
         }

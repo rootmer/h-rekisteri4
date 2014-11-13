@@ -1,7 +1,9 @@
 /** Ohjelma joka ottaa vastaan k‰ytt‰j‰lt‰
 *   henkilˆn perustietoja. Kun taulukko t‰ynn‰
 *   ohjelma ilmoittaa siit‰.
-*
+*   Tekij‰: Toni Turpeinen
+*   PVM: 12.11.2014
+*   Versio: 0.9.0
 */
 
 #include <iostream>
@@ -11,11 +13,13 @@
 
 using namespace std;
 
-/** Globaalien muuttujien m‰‰rittelyt
+/** Globaalien muuttujien m‰‰rittelyt. Taulukon koko
+*   m‰‰ritetty vakiomuuttujassa. tauluTemp t‰ss‰ koska
+*   osoitinta ei voi m‰‰ritt‰‰ vakion kautta. 
 */
-const string tiedosto = "tiedosto.dat";
-const int TAULUN_MAX_KOKO = 3;
 bool VielaMahtuu = true;
+const int TAULUN_MAX_KOKO = 10;
+const string tiedosto = "tiedosto.dat";
 
 
 /** Ohjelman main funktio
@@ -23,10 +27,10 @@ bool VielaMahtuu = true;
 */
 int main(void)
 {
-    /** tietuevectorin kokona 10 alkiota,
-    *   m‰‰ritetty vakiomuuttujassa taulunkoko
-    */
-    vector<tietue> HRekisteri;
+	/** tietuevectorin kokona 10 alkiota,
+	*   m‰‰ritetty vakiomuuttujassa taulunkoko
+	*/
+	vector<tietue> HRekisteri;
 	int valinta = 99;
 
     do {

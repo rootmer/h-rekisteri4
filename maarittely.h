@@ -4,16 +4,17 @@
 
 /** Tietue joka tulee pit‰m‰‰n sis‰ll‰‰n
 *   nimen, koulumatkan pituuden sek‰ hatun
-*   koon.
+*   koon. Oletuksena etunimi- j‰sen alustetaan tilaan
+*   "empty" jotta voidaan tiet‰‰ mik‰ alkio on ns. tyhj‰.
 */
 struct tietue {
-    std::string etunimi;
-    float koulumatka;
-    int hattukoko;
+    std::string EtuNimi;
+    float KouluMatka;
+    int HattuKoko;
 };
 
-/** Vakiomuuttujat t‰ss‰
-*	m‰‰riteltyn‰ ja alustettuna
+/** Vakiomuuttujia
+*	
 */
 extern const int TAULUN_MAX_KOKO;
 extern bool VielaMahtuu;
@@ -26,6 +27,5 @@ void LisaaHenkilo(std::vector<tietue>);
 void TulostaHenkilo(std::vector<tietue>);
 void TulostaKaikkiHenkilot(std::vector<tietue>);
 void PoistaHenkilo(std::vector<tietue>);
-
 
 #endif
