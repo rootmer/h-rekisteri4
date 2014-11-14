@@ -20,7 +20,7 @@ using namespace std;
 *   maksimikoko m‰‰ritetty vakiomuuttujassa
 */
 bool VielaMahtuu = true;
-const int TAULUN_MAX_KOKO = 7;
+const int TAULUN_MAX_KOKO = 10;
 
 
 /** Ohjelman main funktio
