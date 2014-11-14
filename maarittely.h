@@ -11,6 +11,19 @@ struct tietue {
     std::string EtuNimi;
     float KouluMatka;
     int HattuKoko;
+
+	/** Tietueen alustus "emptyksi" */
+	tietue() { 
+		EtuNimi = "empty"; 
+		KouluMatka = 0.0; 
+		HattuKoko = 0;
+	}
+
+	tietue(std::string nimi,float matka,int hattu) {
+		EtuNimi = nimi;
+		KouluMatka = matka;
+		HattuKoko = hattu;
+	}
 };
 
 /** Vakiomuuttujia
@@ -20,12 +33,12 @@ extern const int TAULUN_MAX_KOKO;
 extern bool VielaMahtuu;
 
 /** aliohjelmien prototyypit
-*	muutettu vectoriyhteensopivaksi
+*	vectoriyhteensopivina
 */
 int valikko(void);
-void LisaaHenkilo(std::vector<tietue>);
-void TulostaHenkilo(std::vector<tietue>);
-void TulostaKaikkiHenkilot(std::vector<tietue>);
-void PoistaHenkilo(std::vector<tietue>);
+std::vector<tietue> LisaaHenkilo(std::vector<tietue> Rekisteri);
+void TulostaHenkilo(std::vector<tietue> Rekisteri);
+void TulostaKaikkiHenkilot(std::vector<tietue> Rekisteri);
+std::vector<tietue> PoistaHenkilo(std::vector<tietue> Rekisteri);
 
 #endif

@@ -1,14 +1,16 @@
+/** Tarpeellisten kirjastojen käyttöönotto */
 #include <iostream>
 #include <string>
 #include <vector>
 
+/** Otsaketiedoston sisällyttäminen */
 #include "maarittely.h"
 
-
+/** Helpottaa cinien ja coutien käyttöä */
 using namespace std;
 
-/** Valikko näkyville
-*   nyt aliohjelmana
+/** Valikko aliohjelmana jotta käyttäjä tietää
+*   mitä tapahtuu mistäkin numerosta
 */
 int valikko(void) {
 	int valinta = 99;
@@ -29,8 +31,9 @@ int valikko(void) {
 /** Henkilön lisäämiseen tarkoitettu
 *   aliohjelma. Tarkistaa myös onko tilaa tiedoille.   
 */
-void LisaaHenkilo(vector<tietue> TIEDOT) {
-	cout << " boolean VielaMahtuu arvo on: " << VielaMahtuu << endl;
+vector<tietue> LisaaHenkilo(vector<tietue> TIEDOT) {
+	if (int(TIEDOT.size()) < TAULUN_MAX_KOKO) VielaMahtuu = true;
+
 	if (VielaMahtuu) {
 		string EtuNimi;
 		float KouluMatka;
@@ -42,16 +45,38 @@ void LisaaHenkilo(vector<tietue> TIEDOT) {
 		cout << "Henkilön hatun koko" << endl;
 		cin >> HattuKoko;
 
-		TIEDOT.push_back( {EtuNimi,KouluMatka,HattuKoko} );
+		/** Varmistetaan että ensimmäinen arvo menee vektoriin nätisti,
+		*   oppia otettu allaolevan linkin kautta 
+		*   http://stackoverflow.com/questions/8067338/c-vector-of-structs-initialization
+		*/
+		if ( int(TIEDOT.size()) == 0) {
+			TIEDOT.push_back(tietue());
+			TIEDOT[0].EtuNimi = EtuNimi;
+			TIEDOT[0].KouluMatka = KouluMatka;
+			TIEDOT[0].HattuKoko = HattuKoko;
+			return TIEDOT;
+		}
 
-		/** Testausta varten!!!!!!!!!!!!!!! */
-		TIEDOT.insert(TIEDOT.begin(), { "Toni", 4.2, 44 });
-		TIEDOT.push_back( { "Toni", 4.5, 55 } );
+		/** Normaalitilanteen vectoriin tietojen lisääminen */
+		else { 
+			tietue LISAYS (EtuNimi, KouluMatka, HattuKoko);
+			TIEDOT.push_back(LISAYS);
 
-		if ( int(TIEDOT.size()) == TAULUN_MAX_KOKO) { VielaMahtuu = false; }
+			/** Tarkistetaan että vektorin koko ei ylitä kiinteää 
+			*   rajaa 'TAULUN_MAX_KOKO'. Sen mukaisesti muuttuu
+			*   'VielaMahtuu'.
+			*/
+			if (int(TIEDOT.size()) == TAULUN_MAX_KOKO) VielaMahtuu = false;
+			
+			return TIEDOT;
+			}
 	}
 
-	else if (!VielaMahtuu) { cout << endl << "Taulukko täynnä!" << endl; }
+	/** Taulukko täynnä, ei tehdä muuta kuin ilmoitus asiasta */
+	else if (!VielaMahtuu) { 
+		cout << "\nTaulukko täynnä!" << endl;
+		return TIEDOT;
+	}
 }
 
 
@@ -78,8 +103,7 @@ void TulostaHenkilo(vector<tietue> TIEDOT) {
 }
 
 /** Listaa kaikki henkilöt
-*   tietuetaulukossa TIEDOT
-*
+*   tietuevectorissa TIEDOT
 */
 void TulostaKaikkiHenkilot(vector<tietue> TIEDOT) {
 	for (int a = 0; a < int(TIEDOT.size()); a++) {
@@ -92,7 +116,7 @@ void TulostaKaikkiHenkilot(vector<tietue> TIEDOT) {
 /** Poistaa henkilön tiedot
 *	etunimen perusteella
 */
-void PoistaHenkilo(vector<tietue> TIEDOT) {
+vector<tietue> PoistaHenkilo(vector<tietue> TIEDOT) {
 	string nimi;
 	string vastaus;
 	int poistokohta;
@@ -108,19 +132,17 @@ void PoistaHenkilo(vector<tietue> TIEDOT) {
 			poistokohta = a;
 			
 			if (vastaus == "k") {
-				for (int b = a; b < int(TIEDOT.size()); b++) {
-					TIEDOT.erase(TIEDOT.begin() + (poistokohta-1));
-				}
-			 }
+				TIEDOT.erase(TIEDOT.begin() + poistokohta);
+				return TIEDOT;
+			}
+			 
 			
-		else if (vastaus == "e") break;
-        
-		break;
+			else if (vastaus == "e") return TIEDOT;
         }
 
-        if ( (a == int(TIEDOT.size()) ) && (TIEDOT.at(a).EtuNimi != nimi)) {
+        if ( (a == int(TIEDOT.size()) - 1 ) && (TIEDOT.at(a).EtuNimi != nimi) ) {
             cout << endl << "Ei löytynyt henkilöä: " << nimi << endl;
-            break;
+			return TIEDOT;
         }
     }
 }
